@@ -353,14 +353,14 @@ sudo rm -rf $WLS_PATH/*
 
 
 #download jdk from OTN
-echo "Downloading jdk from OTN..."
-curl -s https://raw.githubusercontent.com/typekpb/oradown/master/oradown.sh  | bash -s -- --cookie=accept-weblogicserver-server --username="${otnusername}" --password="${otnpassword}" $jdkurl
-
-#validateJDKZipCheckSum $BASE_DIR/jdk-8u131-linux-x64.tar.gz
+echo "Downloading jdk"
+#curl -s https://raw.githubusercontent.com/typekpb/oradown/master/oradown.sh  | bash -s -- --cookie=accept-weblogicserver-server --username="${otnusername}" --password="${otnpassword}" $jdkurl
+wget -q --progress=dot --no-check-certificate $jdkurl
 
 #Download Weblogic install jar from OTN
-echo "Downloading weblogic install kit from OTN..."
-curl -s https://raw.githubusercontent.com/typekpb/oradown/master/oradown.sh  | bash -s -- --cookie=accept-weblogicserver-server --username="${otnusername}" --password="${otnpassword}" $shiphomeurl
+echo "Downloading weblogic install kit"
+#curl -s https://raw.githubusercontent.com/typekpb/oradown/master/oradown.sh  | bash -s -- --cookie=accept-weblogicserver-server --username="${otnusername}" --password="${otnpassword}" $shiphomeurl
+wget -q --progress=dot --no-check-certificate $shiphomeurl  
 
 #download Weblogic deploy tool 
 
