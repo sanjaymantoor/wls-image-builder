@@ -2,6 +2,12 @@
 	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
+		"userAssignedIdentity": {
+			"type": "string",
+			"metadata": {
+				"description": "User-assigned identity for resource group"
+			}
+		},	
 		"_artifactsLocation": {
 			"type": "string",
 			"metadata": {
@@ -100,6 +106,13 @@
 			],
 			"tags": {
 				"imagebuilderTemplate": "[variables('name_imagebuilderTemplate')]"
+			},
+			"identity": {
+				"type": "UserAssigned",
+				"userAssignedIdentities": {
+					"[parameters('userAssignedIdentity')]": {
+					}
+				}
 			},
 			"properties": {
 				"buildTimeoutInMinutes": 60,
