@@ -292,25 +292,7 @@ CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export BASE_DIR="$(readlink -f ${CURR_DIR})"
 
 
-read acceptOTNLicenseAgreement otnusername otnpassword shiphomeurl jdkurl wlsversion jdkversion
-
-if [ -z "$acceptOTNLicenseAgreement" ];
-then
-        echo _stderr "acceptOTNLicenseAgreement is required. Value should be either Y/y or N/n"
-        exit 1
-fi
-
-if [[ ! ${acceptOTNLicenseAgreement} =~ ^[Yy]$ ]];
-then
-    echo "acceptOTNLicenseAgreement value not specified as Y/y (yes). Exiting installation Weblogic Server process."
-    exit 1
-fi
-
-if [[ -z "$otnusername" || -z "$otnpassword" ]]
-then
-        echo_stderr "otnusername or otnpassword is required. "
-        exit 1
-fi
+read shiphomeurl jdkurl wlsversion jdkversion
 
 if [ -z "$shiphomeurl" ];
 then
@@ -452,25 +434,27 @@ echo "##########           WebLogic setup completed          ##########"
 echo "================================================================="
 
 
-echo "================================================================="
-echo "##########           Update software to latest         ##########" 
-echo "=================================================================" 
-osVersion=`cat /etc/os-release | grep VERSION_ID |cut -f2 -d"="| sed 's/\"//g'`
-majorVersion=`echo $osVersion |cut -f1 -d"."`
-minorVersion=`echo $osVersion |cut -f2 -d"."`
+# FOLLOWING IS COMMENTED AS REBOOT IS NOT WORKING FOR IMAGE BUILDER
 
-echo "Kernel version before update:"
-uname -a
+#echo "================================================================="
+#echo "##########           Update software to latest         ##########" 
+#echo "=================================================================" 
+#osVersion=`cat /etc/os-release | grep VERSION_ID |cut -f2 -d"="| sed 's/\"//g'`
+#majorVersion=`echo $osVersion |cut -f1 -d"."`
+#minorVersion=`echo $osVersion |cut -f2 -d"."`
 
-echo yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
-yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
+#echo "Kernel version before update:"
+#uname -a
 
-echo "Kernel version after update:"
-uname -a
+#echo yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
+#yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base
 
-echo "================================================================="
-echo "##########           Update software completed         ##########"
-echo "=================================================================" 
+#echo "Kernel version after update:"
+#uname -a
+
+#echo "================================================================="
+#echo "##########           Update software completed         ##########"
+#echo "=================================================================" 
 
 
 

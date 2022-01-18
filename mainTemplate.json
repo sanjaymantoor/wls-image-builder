@@ -52,24 +52,6 @@
 				"description": "Provide JDK version"
 			}
 		},
-		"acceptOTNLicenseAgreement": {
-			"type": "string",
-			"metadata": {
-				"description": "Do you agree to provide OTN credentials to accept OTN License Agreement? Enter Y or y to agree, else N or n"
-			}
-		},
-		"otnAccountUsername": {
-			"type": "string",
-			"metadata": {
-				"description": "Username for your Oracle Technology Network account"
-			}
-		},
-		"otnAccountPassword": {
-			"type": "securestring",
-			"metadata": {
-				"description": "Password for your Oracle Technology Network account"
-			}
-		},
 		"linuxOSVersion": {
 			"type": "string",
 			"defaultValue": "7.6",
@@ -107,7 +89,7 @@
 	"variables": {
 		"name_imageTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
 		"name_imagebuilderTemplate": "[concat('wls',parameters('wlsVersion'),'-',parameters('jdkVersion'),'-ol',parameters('linuxOSVersion'))]",
-		"name_setupWLSCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]",
+		"name_setupWLSCommand": "[concat('sh setupWLS.sh',' <<< \"',parameters('wlsShiphomeURL'),' ',parameters('jdkURL'),' ',parameters('wlsVersion'),' ',parameters('jdkVersion'),'\"')]",
 		"name_opatchUpdateCommand": "[concat('sh opatchUpdate.sh',' <<< \"',parameters('opatchURL'),'\"')]",
 		"name_wlspatchUpdateCommand": "[concat('sh wlsPatchUpdate.sh',' <<< \"',parameters('wlsPatchURL'),'\"')]",
 		"download_wlsScript": "[concat('curl  -# -O ',parameters('_artifactsLocationTemplate'), 'setupWLS.sh')]",
@@ -123,15 +105,7 @@
 			"dependsOn": [
 			],
 			"tags": {
-				"imagebuilderTemplate": "[variables('name_imagebuilderTemplate')]",
-				"userIdentity": "enabled"
-			},
-			"identity": {
-				"type": "UserAssigned",
-				"userAssignedIdentities": {
-					"[parameters('userAssignedIdentity')]": {
-					}
-				}
+				"imagebuilderTemplate": "[variables('name_imagebuilderTemplate')]"
 			},
 			"properties": {
 				"buildTimeoutInMinutes": 60,
